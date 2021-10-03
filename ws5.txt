@@ -1,8 +1,15 @@
 Script started on 2021-10-02 09:26:12+00:00 [TERM="xterm" TTY="/dev/pts/0" COLUMNS="80" LINES="24"]
+
+/// WORKSHEET 5: Looping through top 1000 most reviewing customers IDs
+/// This is almost identical to my answer from the second question of assignment 2
+/// Instead of top 100 customers reviews, its 1000, but in this case the reviews are not cut
+///NOTE: I accidentally kept a pipe "| cut -f 8,9" in the actual run, but without that cut the commands function as intended
+
 ]0;keskin@f6linux6: ~keskin@f6linux6:~$ rm t[KcustomerIDs.txt
 ]0;keskin@f6linux6: ~keskin@f6linux6:~$ tou[K[K[Ktouch customerIDs.txt
+/// REMOVED A PIPE HERE:
 ]0;keskin@f6linux6: ~keskin@f6linux6:~$ cut -f 2 amazon_reviews_us_Books_v1_02.tsv | sort -n | uniq -c | sort -nr | awk '{print $2}' | head -n 1000 > customerIDs.txt
-]0;keskin@f6linux6: ~keskin@f6linux6:~$ input="customerIDs.txt"; while read -r line; do awk -v "ID=$line" '$2 == ID' amazon_reviews_us_Books_v1_02.tsv | cut -f 8,9 > "CUSTOMERS/$line.txt"; done < "$input"
+]0;keskin@f6linux6: ~keskin@f6linux6:~$ input="customerIDs.txt"; while read -r line; do awk -v "ID=$line" '$2 == ID' amazon_reviews_us_Books_v1_02.tsv > "CUSTOMERS/$line.txt"; done < "$input"
 ]0;keskin@f6linux6: ~keskin@f6linux6:~$ his[K[K[Khistory >[K[K[K[K[K[K[K[K[Kexit
 
 Script done on 2021-10-02 12:02:10+00:00 [COMMAND_EXIT_CODE="0"]
