@@ -1,0 +1,10 @@
+/// NOTE: Had some issues with github token typing, decided to copy commands and paste manually
+/// The 3 commands that take the top 1000 most reviewing customers ID's
+/// And put their reviews into the CUSTOMERS directory
+  
+  626  touch customerIDs.txt
+  627  cut -f 2 amazon_reviews_us_Books_v1_02.tsv | sort -n | uniq -c | sort -nr | awk '{print $2}' | head -n 1000 > customerIDs.txt
+  
+  /// the pipe "| cut -f 8,9" is extraneous, files should hold whole review
+  628  input="customerIDs.txt"; while read -r line; do awk -v "ID=$line" '$2 == ID' amazon_reviews_us_Books_v1_02.tsv | cut -f 8,9 > "CUSTOMERS/$line.txt"; done < "$input"
+  
